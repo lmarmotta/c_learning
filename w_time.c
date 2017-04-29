@@ -1,7 +1,5 @@
-/* Ways to measure time in C */
-/* Just for linux */
-/* gcc [this code] -o time */
-/* source: https://users.pja.edu.pl/~jms/qnx/help/watcom/clibref/qnx/clock_gettime.html */
+/* Benchmark of time measurement techinics in C. The goal here is to find 
+ * an idependent of system condition time measurement technic */
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -15,21 +13,43 @@ double w_time(struct timespec start, struct timespec stop){
 int main(int *argc, char **argv){
 
     int variable = 0;
-    double result;
-    struct timespec start, stop;
+    double result_1,result_2, result_3, result_4;
 
-    clock_gettime(CLOCK_REALTIME, &start);
+    struct timespec start_1, stop_1;
+    struct timespec start_2, stop_2;
+    struct timespec start_3, stop_3;
+
+    clock_gettime(CLOCK_REALTIME, &start_1);
+    clock_gettime(CLOCK_MONOTONIC, &start_2);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &start_3);
+    clock_t begin = clock();
 
     int i;
-    for (i = 0; i<1000000; i++){
+    for (i = 0; i<100000000; i++){
         variable = variable + i;
     }
 
-    clock_gettime(CLOCK_REALTIME, &stop);
+    clock_gettime(CLOCK_REALTIME , &stop_1);
+    clock_gettime(CLOCK_MONOTONIC, &stop_2);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &stop_3);
+    clock_t end = clock();
 
-    result = w_time(start, stop);
+    result_1 = w_time(start_1, stop_1);
+    result_2 = (double)(end-begin)/CLOCKS_PER_SEC;
+    result_3 = w_time(start_2, stop_2);
+    result_4 = w_time(start_3, stop_3);
 
-    printf("\nTime elapsed: %lf [s]\n", result);
+    /* Gives different results depending on the process being running */
+    printf("\nTime elapsed: %lf [s]\n", result_1);
+
+    /* Gives different results depending on the process being running */
+    printf("\nTime elapsed: %lf [s]\n", result_2);
+
+    /* Gives different results depending on the process being running */
+    printf("\nTime elapsed: %lf [s]\n", result_3);
+
+    /* Gives different results depending on the process being running */
+    printf("\nTime elapsed: %lf [s]\n", result_4);
 
     return 0;
 }
