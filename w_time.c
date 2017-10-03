@@ -25,7 +25,7 @@ int main(int *argc, char **argv){
     clock_t begin = clock();
 
     int i;
-    for (i = 0; i<100000000; i++){
+    for (i = 0; i<100000; i++){
         variable = variable + i;
     }
 

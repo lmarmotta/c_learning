@@ -7,9 +7,9 @@
 
 # define SIZE 100000
 
-int check_answer(double * vec);
+void check_answer(double * vec);
 
-int main(int *argc, char **argv){
+int main(){
 
     int i;
 
@@ -21,7 +21,7 @@ int main(int *argc, char **argv){
     printf(" \n- Done with vector allocation\n");
 
     /* Fill the vectors with dummy values */ 
-    for (i=1; i<=SIZE; i++){
+    for (i=0; i<SIZE; i++){
         vec_1[i] = 1.0;
         vec_2[i] = 2.0;
     }
@@ -32,7 +32,7 @@ int main(int *argc, char **argv){
 
     clock_t begin = clock();
 
-    for (i=1; i<=SIZE; i++) vec_3[i] = vec_1[i] * vec_2[i];
+    for (i=0; i<SIZE; i++) vec_3[i] = vec_1[i] * vec_2[i];
 
     clock_t end = clock();
 
@@ -44,15 +44,12 @@ int main(int *argc, char **argv){
 
     /* Running vector summation with openmp */
 
-    begin = 0;
-    end = 0;
-
     begin = clock();
 
     #pragma omp parallel shared(vec_3) private(i)
     {
     #pragma omp for schedule(static)
-    for (i=1; i<=SIZE; i++) vec_3[i] = vec_1[i] * vec_2[i];
+    for (i=0; i<SIZE; i++) vec_3[i] = vec_1[i] * vec_2[i];
     }
 
     end = clock();
@@ -63,10 +60,14 @@ int main(int *argc, char **argv){
 
     check_answer(vec_3);
 
+    free(vec_1);
+    free(vec_2);
+    free(vec_3);
+
     return 0;
 }
 
-int check_answer(double * vec){
+void check_answer(double * vec){
 
     if (vec[1] == vec[SIZE]) 
         printf(" \n++ CORRECT ANSWER ++\n");
