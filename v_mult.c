@@ -69,7 +69,7 @@ int main(){
 
 void check_answer(double * vec){
 
-    if (vec[1] == vec[SIZE]) 
+    if (vec[1] == vec[SIZE-1]) 
         printf(" \n++ CORRECT ANSWER ++\n");
     else
         printf(" \n++ WRONG ANSWER ++\n");

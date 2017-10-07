@@ -9,11 +9,8 @@ typedef struct p_data{
 } p_data;
 
 void rhoOverField(p_data *da, int s_domain){
-
     int i;
-    for(i=0;i< s_domain;i++){
-        da[i].rho = 1.225;
-    }
+    for(i=0;i< s_domain;i++) da[i].rho = 1.225;
 }
 
 void fillJacobian(p_data *da, int s_domain){
