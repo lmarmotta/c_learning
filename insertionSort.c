@@ -4,7 +4,9 @@
  * although the book is pretty clear about the while controling statment being
  * set to i>0, in C, due to 0 counting convention, this is not coorect. You
  * need to include the '=' in order to sort the first element of the vector. 
- * Leonardo Motta Maia, 2017 
+ *
+ * Complexity: - Worst case: O(n^2)
+ *             - Best  case: O(n)
  */
 
 #include<stdio.h>
