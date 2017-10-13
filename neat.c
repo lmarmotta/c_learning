@@ -68,7 +68,7 @@ p_data *allocateDomain(int n_eq, int s_domain){
 
 }
 
-void freeDomain(p_data *da, int n_eq, int s_domain){
+void freeDomain(p_data *da, int s_domain){
 
     int i;
 
@@ -103,7 +103,7 @@ int main(){
     dumpDomain(pd);
 
     /* Free the domain */
-    freeDomain(pd,6,s_domain);
+    freeDomain(pd,s_domain);
 
     return 0;
 }

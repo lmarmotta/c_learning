@@ -13,8 +13,9 @@
 void dummy_swap(int * val_1, int * val_2);
 void bit_swap(int * val_1, int * val_2);
 int dummy_min(int val_1, int val_2);
+int bit_min(int val_1, int val_2);
 
-int main(int *argc, char **argv){
+int main(void){
 
     int i;
     int x = 1;
