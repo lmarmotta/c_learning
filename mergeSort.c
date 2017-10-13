@@ -1,30 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include"comm.h"
 
 /* Cormens implementation of the merge sort algorithm.
  * I hate recursion with all my heart.
  * Best case scenario: O(n log n)
  * Worst case scenario: O(n log n)
  * Stable: Yes. */
-
-double *rnd(int size, double max){
-
-    int i;
-    double *ptr = NULL;
-
-    ptr = (double*)malloc(size*sizeof(double));
-
-    if (ptr == NULL){
-        printf("Allocation failed\n"); exit(1);
-    }
-
-    for (i=0; i<size; i++){
-        ptr[i] = (double)rand()/(double)(RAND_MAX/max);
-    }
-
-    return ptr;
-}
 
 void merge(double *series, int p, int q, int r){
 
@@ -80,7 +63,6 @@ void mergeSort(double *series, int p, int r){
         mergeSort(series,q+1,r);
         merge(series,p,q,r);
     }
-
 }
 
 int main(void){
@@ -92,13 +74,14 @@ int main(void){
 
     series = rnd(size, max);
 
-    for (i=0; i<size; i++) printf(" - Vector[%d] = %lf\n",i,series[i]);
+    for (i=0; i<size; i++) printf(" - Vector[%d] = %10.4f\n",i,series[i]);
 
+    /* sort data */
     mergeSort(series,0,size-1);
 
     printf("\n");
 
-    for (i=0; i<size; i++) printf(" - Vector[%d] = %lf\n",i,series[i]);
+    for (i=0; i<size; i++) printf(" - Vector[%d] = %10.4f\n",i,series[i]);
 
     free(series);
 
