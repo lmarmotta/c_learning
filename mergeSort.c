@@ -35,6 +35,7 @@ void merge(double *series, int p, int q, int r){
     }
 
     /* Cormen recomendation to clean the implementation */
+
     L[n1] = 100.0;
     R[n2] = 100.0;
 
