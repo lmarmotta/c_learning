@@ -35,7 +35,7 @@ def main():
 
     # Store the sequence in order to order the leters.
 
-    sequence = list(contFract(m.sqrt(2.0)))
+    sequence = list(contFract(m.sqrt(5.0)))
 
     # Define an alphabet.
 
