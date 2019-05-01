@@ -54,8 +54,8 @@ def main():
 
     # Define a key.
 
-    key_seed    = 12.2
-    garb_length = 30
+    key_seed    = 23.1
+    garb_length = 100
     jump        = 2
 
     # Create the key.
@@ -95,12 +95,21 @@ def main():
     print ("+ Crypt message (core): ", crypt_message_safe,"\n")
 
     crypt_message_safe = crypt_message_safe + genbyte(garb_length)
-    
-    print ("+ Crypt message (with trash): ", crypt_message_safe,"\n")
+
+    print ("+ Crypt message (core + backward trash): ", crypt_message_safe,"\n")
+
+    crypt_message_safe = genbyte(garb_length) + crypt_message_safe 
+
+    print ("+ Crypt message (backward trash + trashed message): ", crypt_message_safe,"\n")
+
+    file_out = open("test.dat","w")
+    for i in range(len(crypt_message_safe)):
+        file_out.write(str(crypt_message_safe[i])) # dieharder -a -f test.dat
+    file_out.close()
 
     # Append trash to message.
 
-    crypt_message_safe = xor_strings(crypt_message_safe[0:len(clear_message)], crypt_message_byte)
+    crypt_message_safe = xor_strings(crypt_message_safe[garb_length:garb_length + len(clear_message)], crypt_message_byte)
 
     print ("+ Decrypted message: ", crypt_message_safe.decode('utf8'),"\n")
 
